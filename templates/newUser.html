@@ -5,15 +5,17 @@
 </head>
 
 <body>
-  <img src="images/cng.png" height="48" width="48" />
-  Add a user data successful!!
+  <img src="images/logo.png" height="48" width="48" />
+  User Add data successful!!
   <div>
-    <p class="new-fname">The first name is {{.NewUser.Fname}}.</p>
-    <p class="new-lname">The last name is {{.NewUser.Lname}}.</p>
+    <p class="new-fname">First name: {{.NewUser.Fname}}.</p>
+    <p class="new-lname">Last name: {{.NewUser.Lname}}.</p>
   </div>
 
-  <div align="center">
-    <p>All user data are showed below:</p>
+  <hr />
+
+  <div>
+    <p>All users are showed below:</p>
     <table id="users-table">
       <thead>
         Users <br>
