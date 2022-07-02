@@ -16,6 +16,6 @@ var serverCmd = &cobra.Command{
 	Long:  `server`,
 	Run: func(cmd *cobra.Command, args []string) {
 		server := service.NewServer()
-		server.Run(":" + serverCfg.Port)
+		server.Run(":" + cfg.Server.Port)
 	},
 }

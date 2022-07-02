@@ -12,7 +12,7 @@ import (
 
 var cfgFile string
 
-var serverCfg = new(config.Server)
+var cfg = new(config.Cfg)
 
 func initConfig() {
 	viper.SetConfigFile(cfgFile)
@@ -20,24 +20,30 @@ func initConfig() {
 		fmt.Println("Can't read config:", err)
 		os.Exit(1)
 	}
-	if err := viper.Unmarshal(serverCfg); err != nil {
-		panic(fmt.Errorf("unmarshal conf server failed, err:%s \n", err))
+	if err := viper.Unmarshal(cfg); err != nil {
+		panic(fmt.Errorf("unmarshal conf server failed, err:%s ", err))
 	}
 }
 
-var showConfigCmd = &cobra.Command{
+var configCmd = &cobra.Command{
 	Use:   "config",
-	Short: "config",
-	Long:  `config`,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("server = %+v\n", serverCfg)
+	Short: "config related",
+	Long:  `config related`,
+}
 
+var showCmd = &cobra.Command{
+	Use:   "show",
+	Short: "show config",
+	Long:  `show config`,
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Printf("server = %+v\n", cfg)
 	},
 }
 
 func init() {
 	cobra.OnInitialize(initConfig)
-	rootCmd.Flags().StringVarP(&cfgFile, "config", "c", "settings.yaml", "config file")
+	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "settings.yaml", "config file")
 
-	rootCmd.AddCommand(showConfigCmd)
+	rootCmd.AddCommand(configCmd)
+	configCmd.AddCommand(showCmd)
 }
