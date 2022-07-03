@@ -16,3 +16,6 @@
 
 # System file
 .DS_store
+
+# air tmpl files
+/tmp

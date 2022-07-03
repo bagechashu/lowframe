@@ -27,6 +27,7 @@ func (s *Server) initServer() {
 func (s *Server) initRoutes() {
 	formatter := render.New(render.Options{
 		Directory:  "templates",
+		Layout:     "layout",
 		Extensions: []string{".html"},
 		IndentJSON: true,
 	})

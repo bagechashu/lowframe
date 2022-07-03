@@ -1,39 +1,31 @@
-<html>
-
-<head>
-  <link rel="stylesheet" href="css/main.css" />
-</head>
-
-<body>
-  <img src="images/logo.png" height="48" width="48" />
+{{ define "content" }}
+<div>
   User Add data successful!!
-  <div>
-    <p class="new-fname">First name: {{.NewUser.Fname}}.</p>
-    <p class="new-lname">Last name: {{.NewUser.Lname}}.</p>
-  </div>
+  <p class="new-fname">First name: {{.NewUser.Fname}}.</p>
+  <p class="new-lname">Last name: {{.NewUser.Lname}}.</p>
+</div>
 
-  <hr />
+<hr />
 
-  <div>
-    <p>All users are showed below:</p>
-    <table id="users-table">
-      <thead>
-        Users <br>
-        <tr>
-          <th>first name</th>
-          <th>last name</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{range .UserList}}
-        <tr>
-          <td>{{.Fname}}</td>
-          <td>{{.Lname}}</td>
-        </tr>
-        {{end}}
-      </tbody>
-    </table>
-  </div>
-</body>
-
-</html>
+<div>
+  <p>All users are showed below:</p>
+  <table id="users-table">
+    <thead>
+      Users
+      <br />
+      <tr>
+        <th>first name</th>
+        <th>last name</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{range .UserList}}
+      <tr>
+        <td>{{.Fname}}</td>
+        <td>{{.Lname}}</td>
+      </tr>
+      {{end}}
+    </tbody>
+  </table>
+</div>
+{{ end }}

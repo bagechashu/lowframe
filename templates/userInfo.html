@@ -1,29 +1,18 @@
-<html>
+{{ define "script" }}
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="js/get-data.js"></script>
+{{ end }}
 
-<head>
-  <link rel="stylesheet" href="css/main.css" />
-  <script src="http://code.jquery.com/jquery-latest.js"></script>
-  <script src="js/get-data.js"></script>
-</head>
-
-<body>
-  <p>
-    <img src="images/logo.png" height="48" width="48" />
-    All users are showed below:<br>
-  </p>
-
-  <p>
-  <table id="users-table">
-    <thead>
-      Users <br>
-      <tr>
-        <th>first name</th>
-        <th>last name</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-  </p>
-</body>
-
-</html>
+{{ define "content" }}
+<table id="users-table">
+  <thead>
+    Users List
+    <br />
+    <tr>
+      <th>first name</th>
+      <th>last name</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+{{ end }}

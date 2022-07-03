@@ -10,7 +10,7 @@
             "env": {},
             "args": [
                 "server",
-                "walk"
+                "run"
             ]
         }
     ]

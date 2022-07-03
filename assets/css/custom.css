@@ -1,0 +1,22 @@
+header {
+    background: #f4f5f6;
+    border-bottom: .1rem solid #d1d1d1;
+    height: 5.2rem;
+    top: 0;
+    width: 100%;
+    z-index: 2;
+    overflow: hidden;
+    position: fixed;
+}
+
+main {
+    margin-top: 6rem;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 5rem;
+    /* Footer height */
+}

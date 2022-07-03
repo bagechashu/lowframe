@@ -1,22 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LowFrame</title>
-    <link rel="stylesheet" href="css/main.css" />
-</head>
-
-<body>
-  <h1><img src="images/logo.png" height="48" width="48" /> Go Web Application! </h1>
-  <hr/>
-
+{{ define "content" }}
+<div>
   <form action="/userInfo" method="post">
-    First name: <input type="text" name="fname" /><br>
-    Last name: <input type="text" name="lname" /><br>
-    <input type="submit" value="sign up">
+    First name: <input type="text" name="fname" /><br />
+    Last name: <input type="text" name="lname" /><br />
+    <input type="submit" value="sign up" />
   </form>
-</body>
-
-</html>
+</div>
+{{ end }}
