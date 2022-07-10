@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="stylesheet" href="css/milligram.css" />
     <link rel="stylesheet" href="css/custom.css" />
-    {{ template "script" .}}
+
+    {{ partial "script" }}
+
   </head>
 
   <body>
@@ -16,17 +18,17 @@
       <nav class="navigation">
         <section class="container">
           <a class="navigation-title row row-center" href="/" title="LowFrame">
-            <img src="images/logo.png" height="48" width="48" />&nbsp;<span
-              style="font-size: 2.5rem"
-              >LowFrame</span
-            >
+            <img src="images/logo.png" height="48" width="48" />&nbsp;
+            <span style="font-size: 2.5rem">LowFrame</span>
           </a>
         </section>
       </nav>
     </header>
 
     <main class="wrapper">
-      <section class="container">{{ template "content" .}}</section>
+      <section class="container">
+        {{ partial "content" }}
+      </section>
     </main>
 
     <footer class="footer">

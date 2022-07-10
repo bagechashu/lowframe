@@ -2,9 +2,12 @@ package service
 
 import (
 	"fmt"
+	"io/fs"
+	"log"
 	"net/http"
-	"os"
 	"strings"
+
+	"lowframe/templates"
 
 	"github.com/gorilla/mux"
 	"github.com/unrolled/render"
@@ -25,29 +28,40 @@ func (s *Server) initServer() {
 }
 
 func (s *Server) initRoutes() {
-	formatter := render.New(render.Options{
-		Directory:  "templates",
-		Layout:     "layout",
-		Extensions: []string{".html"},
-		IndentJSON: true,
+	tmplRender := render.New(render.Options{
+		Directory: "templates",
+		FileSystem: &render.EmbedFileSystem{
+			FS: templates.TemplatesFS,
+		},
+		DisableHTTPErrorRendering: true,
+		Layout:                    "layout/layout",
+		Extensions:                []string{".html"},
+		IndentJSON:                true,
 	})
 
 	s.Router.HandleFunc("/api/unknown", notImplementedHandler()).Methods("GET")
-	s.Router.HandleFunc("/api/getData", getDataHandler(formatter)).Methods("GET")
-	s.Router.HandleFunc("/", homeHandler(formatter)).Methods("GET")
-	s.Router.HandleFunc("/userInfo", postUserInfoHandler(formatter)).Methods("POST")
-	s.Router.HandleFunc("/userInfo", getUserInfoHandler(formatter)).Methods("GET")
+	s.Router.HandleFunc("/api/getData", getDataHandler(tmplRender)).Methods("GET")
+	s.Router.HandleFunc("/", homeHandler(tmplRender)).Methods("GET")
+	s.Router.HandleFunc("/userInfo", postUserInfoHandler(tmplRender)).Methods("POST")
+	s.Router.HandleFunc("/userInfo", getUserInfoHandler(tmplRender)).Methods("GET")
 
-	// setup file server
-	webRoot := os.Getenv("WEBROOT")
-	if len(webRoot) == 0 {
-		if root, err := os.Getwd(); err != nil {
-			panic("Could not retrive working directory")
-		} else {
-			webRoot = root
-		}
+	// // setup file server
+	// webRoot := os.Getenv("WEBROOT")
+	// if len(webRoot) == 0 {
+	// 	if root, err := os.Getwd(); err != nil {
+	// 		panic("Could not retrive working directory")
+	// 	} else {
+	// 		webRoot = root
+	// 	}
+	// }
+	// s.Router.PathPrefix("/").Handler(http.FileServer(http.Dir(webRoot + "/assets/")))
+
+	assets, err := fs.Sub(templates.AssetsFS, "assets")
+	if err != nil {
+		log.Fatal(err)
 	}
-	s.Router.PathPrefix("/").Handler(http.FileServer(http.Dir(webRoot + "/assets/")))
+	s.Router.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.FS(assets)))).Methods(http.MethodGet)
+
 }
 
 func (s *Server) Run(addr ...string) {
