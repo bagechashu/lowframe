@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $.ajax({
-        url: "/api/getData"
+        url: "/api/v1/user/getData"
     }).then(function(data) {
        for (let index = 0; index < data.length; index++) {
            const user = data[index];

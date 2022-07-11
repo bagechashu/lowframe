@@ -1,12 +1,10 @@
 package cmd
 
 import (
-	"lowframe/service"
+	"lowframe/server"
 
 	"github.com/spf13/cobra"
 )
-
-var server = new(service.Server)
 
 var serverCmd = &cobra.Command{
 	Use:   "server",

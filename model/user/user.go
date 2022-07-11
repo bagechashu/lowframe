@@ -1,24 +1,24 @@
-package service
+package user
 
 import (
 	"net/url"
 )
 
-type user struct {
+var UList []User
+
+type User struct {
 	Fname string `json:"fname"`
 	Lname string `json:"lname"`
 }
 
-var uList []user
-
-func isValid(form url.Values) bool {
+func IsValid(form url.Values) bool {
 	fname := form["fname"][0]
 	lname := form["lname"][0]
 	return len(fname) > 0 && len(lname) > 0
 }
 
-func parseUser(form url.Values) user {
-	user := user{
+func ParseUser(form url.Values) User {
+	user := User{
 		Fname: form["fname"][0],
 		Lname: form["lname"][0],
 	}

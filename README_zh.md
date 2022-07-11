@@ -1,6 +1,6 @@
 <!-- omit in toc -->
 # LowFrame
-用于快速构建简易项目的模板框架.
+用于快速构建简易项目的 MVC 模板框架.
 适合没有精力的非专业程序员, 解决内网零散紧急需求使用.
 
 基于流行的, 活跃的三方库实现以下主要功能:
@@ -9,6 +9,39 @@
 - js
 - 模板
 - ...
+
+# 代码组织
+
+```
+├── main.go                 # 主入口
+├── settings.yaml           # 主配置文件
+├── cmd                     # 命令行入口
+│   ├── config.go           # init 加载配置
+│   ├── root.go
+│   └── server.go           # 调用 server 启动服务
+├── config                  # 配置文件定义
+│   ├── cfg.go
+│   └── server.go
+├── server                  # 服务入口
+│   ├── router.go           # APP 与路由关联
+│   └── server.go           # http.Server 命令
+├── app                     # APP 业务
+│   ├── subroute.go         # 子路由定义
+│   ├── api                 # API response
+│   │   └── user
+│   └── web                 # template web response
+│       ├── root
+│       └── user
+├── model                   # 业务数据模型
+│   └── user
+└── templates               # 模板
+    ├── template.go         # 模板定义
+    ├── assets              # 样式文件, js 文件
+    └── templates           # 模板文件
+
+
+```
+
 
 # 样例实现的功能：
 - 静态文件服务
