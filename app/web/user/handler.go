@@ -7,6 +7,12 @@ import (
 	"github.com/unrolled/render"
 )
 
+func userAddFormHandler(TmplRender *render.Render) http.HandlerFunc {
+	return func(w http.ResponseWriter, req *http.Request) {
+		TmplRender.HTML(w, http.StatusOK, "user/index", nil)
+	}
+}
+
 func postUserInfoHandler(TmplRender *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
 		// 解析url传递的参数，对于POST则解析响应包的主体（request body）

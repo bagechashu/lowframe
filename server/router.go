@@ -14,8 +14,13 @@ import (
 )
 
 func registerRoutes(mux *mux.Router, router *app.SubRoute) {
-	subrouter := mux.PathPrefix(router.PathPrefix).Subrouter()
+	if router.PathPrefix == "" && len(router.RList) == 0 {
+		for _, r := range router.RList {
+			mux.HandleFunc(r.Path, r.Handler).Methods(r.HttpMethod)
+		}
+	}
 
+	subrouter := mux.PathPrefix(router.PathPrefix).Subrouter()
 	for _, r := range router.RList {
 		subrouter.HandleFunc(r.Path, r.Handler).Methods(r.HttpMethod)
 	}

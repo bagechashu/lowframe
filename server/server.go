@@ -65,10 +65,11 @@ func WalkRoutes() {
 		}
 		methods, err := route.GetMethods()
 		if err != nil {
-			fmt.Println(err)
+			fmt.Printf("Route \t%s\t donot define http method.\n", pathTemplate)
 		}
 		if methods == nil {
-			methods = []string{"Null"}
+			// methods = []string{"Null"}
+			return nil
 		}
 
 		table.AddRow([]string{
