@@ -2,12 +2,21 @@ package root
 
 import (
 	"lowframe/app"
+	"lowframe/templates"
 	"net/http"
+
+	"github.com/unrolled/render"
 )
 
-func redirectToUser() http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, "/user/", http.StatusMovedPermanently)
+// func redirectToUser() http.HandlerFunc {
+// 	return func(w http.ResponseWriter, r *http.Request) {
+// 		http.Redirect(w, r, "/user/", http.StatusMovedPermanently)
+// 	}
+// }
+
+func indexHandler(layoutHTMLRender *render.Render) http.HandlerFunc {
+	return func(w http.ResponseWriter, req *http.Request) {
+		layoutHTMLRender.HTML(w, http.StatusOK, "index", nil)
 	}
 }
 
@@ -24,7 +33,7 @@ func init() {
 		app.R{
 			HttpMethod: http.MethodGet,
 			Path:       "/",
-			Handler:    redirectToUser(),
+			Handler:    indexHandler(templates.LayoutHTMLRender),
 		},
 	)
 }

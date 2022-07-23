@@ -12,13 +12,23 @@ var TemplatesFS embed.FS
 //go:embed assets
 var AssetsFS embed.FS
 
-var TmplRender = render.New(render.Options{
+var LayoutHTMLRender = render.New(render.Options{
 	Directory: "templates",
 	FileSystem: &render.EmbedFileSystem{
 		FS: TemplatesFS,
 	},
 	DisableHTTPErrorRendering: true,
 	Layout:                    "layout/layout",
+	Extensions:                []string{".html"},
+	IndentJSON:                true,
+})
+
+var RawRender = render.New(render.Options{
+	Directory: "templates",
+	FileSystem: &render.EmbedFileSystem{
+		FS: TemplatesFS,
+	},
+	DisableHTTPErrorRendering: true,
 	Extensions:                []string{".html"},
 	IndentJSON:                true,
 })

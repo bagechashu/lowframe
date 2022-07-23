@@ -1,8 +1,8 @@
 {{ define "content-user/newUser" }}
 <div>
   User Add data successful!!
-  <p class="new-fname">First name: {{.NewUser.Fname}}.</p>
-  <p class="new-lname">Last name: {{.NewUser.Lname}}.</p>
+  <p class="new-fname">First name: {{.NewUser.Username}}.</p>
+  <p class="new-lname">Last name: {{.NewUser.Password}}.</p>
 </div>
 
 <hr />
@@ -21,8 +21,8 @@
     <tbody>
       {{range .UserList}}
       <tr>
-        <td>{{.Fname}}</td>
-        <td>{{.Lname}}</td>
+        <td>{{.Username}}</td>
+        <td>{{.Password}}</td>
       </tr>
       {{end}}
     </tbody>

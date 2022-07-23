@@ -18,24 +18,8 @@ func init() {
 	UserRouter.AddRouter(
 		app.R{
 			HttpMethod: http.MethodGet,
-			Path:       "/",
-			Handler:    userAddFormHandler(templates.TmplRender),
-		},
-	)
-
-	UserRouter.AddRouter(
-		app.R{
-			HttpMethod: http.MethodGet,
-			Path:       "/info",
-			Handler:    getUserInfoHandler(templates.TmplRender),
-		},
-	)
-
-	UserRouter.AddRouter(
-		app.R{
-			HttpMethod: http.MethodPost,
-			Path:       "/info",
-			Handler:    postUserInfoHandler(templates.TmplRender),
+			Path:       "/login",
+			Handler:    userLoginFormHandler(templates.LayoutHTMLRender),
 		},
 	)
 

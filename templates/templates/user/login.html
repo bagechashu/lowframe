@@ -1,0 +1,74 @@
+{{ define "script-user/login" }}
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"
+  integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+<script src="/js/utils.js"></script>
+
+<script type="text/javascript">
+  $(function () {
+    $("#login-form").validate({
+      rules: {
+        username: {
+          required: true,
+          minlength: 4,
+        },
+        password: {
+          required: true,
+          minlength: 5,
+        },
+      },
+      //For custom messages
+      // messages: {
+      //   username: {
+      //     required: "Enter a username",
+      //     minlength: "Enter at least 4 characters",
+      //   },
+      // },
+      errorElement: "div",
+      errorPlacement: function (error, element) {
+        var placement = $(element).data("error");
+        if (placement) {
+          $(placement).append(error);
+        } else {
+          error.insertAfter(element);
+        }
+      },
+      submitHandler: function (form) {
+        authSubmit(form);
+      },
+    });
+
+    function authSubmit(form) {
+      $.ajax({
+        type: "POST",
+        url: "/api/v1/user/login",
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        data: $(form).serialize(),
+        // contentType: "application/json; charset=utf-8",
+        // data: FormToJson(form),
+        success: function (result) {
+          // console.log(result);
+          $("#result").html(result);
+          // $("#result").append($('<section>').text(JSON.stringify(result)));
+        },
+      });
+    }
+  });
+</script>
+
+{{ end }} {{ define "content-user/login" }}
+<div>
+  <form id="login-form">
+    Username: <input type="text" name="username" /><br />
+    Password: <input type="password" name="password" /><br />
+    <button type="submit" class="button button-outline" id="login-button">
+      Login
+    </button>
+  </form>
+</div>
+<div id="result"></div>
+{{ end }}

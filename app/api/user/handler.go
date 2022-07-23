@@ -1,6 +1,8 @@
 package user
 
 import (
+	"fmt"
+	"log"
 	"net/http"
 
 	userModel "lowframe/model/user"
@@ -8,17 +10,44 @@ import (
 	"github.com/unrolled/render"
 )
 
-func getDataHandler(TmplRender *render.Render) http.HandlerFunc {
+func getDataHandler(rawReader *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
-		TmplRender.JSON(w, http.StatusOK, userModel.UList)
+		rawReader.JSON(w, http.StatusOK, userModel.UList)
 	}
 }
 
-// notImplemented replies to the request with an HTTP 501 Not Implemented.
-func notImplemented(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "501 Not Implemented", http.StatusNotImplemented)
+func postUserLoginHandler(rawReader *render.Render) http.HandlerFunc {
+	return func(w http.ResponseWriter, req *http.Request) {
+		// 解析url传递的参数，对于POST则解析响应包的主体（request body）
+		// 注意:如果没有调用ParseForm方法，下面无法获取表单的数据
+		err := req.ParseForm()
+		if err != nil {
+			log.Println(err)
+		}
+		if !userModel.IsValid(req.Form) {
+			rawReader.JSON(w, http.StatusBadRequest, struct{ ErrorIndo string }{"Bad Input!"})
+			return
+		}
+
+		newUser := userModel.ParseUser(req.Form)
+		userModel.UList = append(userModel.UList, newUser)
+
+		fmt.Printf("%+v", struct {
+			UserList []userModel.User
+		}{UserList: userModel.UList})
+
+		rawReader.HTML(w, http.StatusOK, "user/userList", struct {
+			UserList []userModel.User
+		}{UserList: userModel.UList})
+	}
 }
 
-// notImplementedHandler returns a simple request handler
-// that replies to each request with a ``501 Not Implemented'' reply.
-func notImplementedHandler() http.HandlerFunc { return http.HandlerFunc(notImplemented) }
+func getUserInfoHandler(rawReader *render.Render) http.HandlerFunc {
+	return func(w http.ResponseWriter, req *http.Request) {
+		rawReader.JSON(w, http.StatusOK, struct {
+			NewUser  userModel.User
+			UserList []userModel.User
+		}{UserList: userModel.UList})
+	}
+
+}

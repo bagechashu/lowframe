@@ -18,16 +18,24 @@ func init() {
 	ApiUserRouter.AddRouter(
 		app.R{
 			HttpMethod: http.MethodGet,
-			Path:       "/unknown",
-			Handler:    notImplementedHandler(),
+			Path:       "/getData",
+			Handler:    getDataHandler(templates.RawRender),
+		},
+	)
+	ApiUserRouter.AddRouter(
+		app.R{
+			HttpMethod: http.MethodGet,
+			Path:       "/info",
+			Handler:    getUserInfoHandler(templates.RawRender),
 		},
 	)
 
 	ApiUserRouter.AddRouter(
 		app.R{
-			HttpMethod: http.MethodGet,
-			Path:       "/getData",
-			Handler:    getDataHandler(templates.TmplRender),
+			HttpMethod: http.MethodPost,
+			Path:       "/login",
+			Handler:    postUserLoginHandler(templates.RawRender),
 		},
 	)
+
 }

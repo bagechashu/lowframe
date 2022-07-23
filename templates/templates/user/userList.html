@@ -1,0 +1,21 @@
+<p>All users are showed below:</p>
+<table id="users-table">
+  <thead>
+    Users
+    <br />
+    <tr>
+      <th>first name</th>
+      <th>last name</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{range .UserList}}
+    <tr>
+      <!-- Template use Struct's type name, it's different from JSON type name!
+          If use Wrong type name, the template return empty string. -->
+      <td>{{.Username}}</td>
+      <td>{{.Password}}</td>
+    </tr>
+    {{end}}
+  </tbody>
+</table>

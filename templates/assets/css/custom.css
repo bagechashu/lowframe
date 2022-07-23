@@ -7,10 +7,16 @@ header {
 }
 
 main {
+  margin-top: 0.5rem;
   flex: 1 0 auto;
 }
 
 footer {
+  margin-top: 2rem;
   height: 5.2rem;
   flex: 0 0 auto;
+}
+
+.error {
+  color: red;
 }
