@@ -25,17 +25,22 @@
 ├── server                  # 服务入口
 │   ├── router.go           # APP 与路由关联
 │   └── server.go           # http.Server 命令
-├── app                     # APP 业务
-│   ├── subroute.go         # 子路由定义
-│   ├── api                 # API response
-│   │   └── user
-│   └── web                 # template web response
-│       ├── root
-│       └── user
-├── model                   # 业务数据模型
-│   └── user
+├── app                     # 业务代码
+│   ├── index               # index 入口
+│   │   ├── api_router.go
+│   │   ├── web_handler.go
+│   │   └── web_router.go
+│   ├── public              # 公共 handler
+│   │   └── api_handler.go  # 有一个占位用的 handler
+│   ├── subroute.go         # 子路由结构体定义
+│   └── user                # 用户业务入口
+│       ├── api_handler.go  # 用户 api 方法
+│       ├── api_router.go   # 用户 api 路由
+│       ├── model.go        # 用户结构体定义
+│       ├── web_handler.go  # 用户 模板渲染 方法
+│       └── web_router.go   # 用户 模板渲染 路由
 └── templates               # 模板
-    ├── template.go         # 模板定义
+    ├── template.go         # 模板 render 初始化
     ├── assets              # 样式文件, js 文件
     └── templates           # 模板文件
 
