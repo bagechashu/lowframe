@@ -16,18 +16,14 @@ var runCmd = &cobra.Command{
 	Use:   "run",
 	Short: "start server",
 	Long:  `start server`,
-	Run: func(cmd *cobra.Command, args []string) {
-		server.Run(":" + cfg.Server.Port)
-	},
+	Run:   server.Run,
 }
 
 var walkCmd = &cobra.Command{
 	Use:   "walk",
 	Short: "walk route server",
 	Long:  `walk route server`,
-	Run: func(cmd *cobra.Command, args []string) {
-		server.WalkRoutes()
-	},
+	Run:   server.WalkRoutes,
 }
 
 func init() {

@@ -2,9 +2,11 @@ package server
 
 import (
 	"fmt"
+	"lowframe/config"
 	"strings"
 
 	"github.com/gorilla/mux"
+	"github.com/spf13/cobra"
 	"github.com/urfave/negroni"
 
 	"github.com/liushuochen/gotable"
@@ -22,12 +24,12 @@ func init() {
 	initAssetsRouter()
 }
 
-func Run(addr ...string) {
+func Run(cmd *cobra.Command, args []string) {
 	Negroni.UseHandler(Mux)
-	Negroni.Run(addr...)
+	Negroni.Run(":" + config.Cfg.Server.Port)
 }
 
-func WalkRoutes() {
+func WalkRoutes(cmd *cobra.Command, args []string) {
 	table, err := gotable.Create(
 		"ROUTE",
 		"Path regexp",
