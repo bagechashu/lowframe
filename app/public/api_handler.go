@@ -1,4 +1,4 @@
-package user
+package public
 
 import (
 	"net/http"
@@ -11,4 +11,4 @@ func notImplemented(w http.ResponseWriter, r *http.Request) {
 
 // notImplementedHandler returns a simple request handler
 // that replies to each request with a ``501 Not Implemented'' reply.
-func notImplementedHandler() http.HandlerFunc { return http.HandlerFunc(notImplemented) }
+func NotImplementedHandler() http.HandlerFunc { return http.HandlerFunc(notImplemented) }

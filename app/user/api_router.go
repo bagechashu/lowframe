@@ -6,13 +6,13 @@ import (
 	"net/http"
 )
 
-var ApiUserRList []app.R
+var apiUserRList []app.R
 var ApiUserRouter *app.SubRoute
 
 func init() {
 	ApiUserRouter = &app.SubRoute{
 		PathPrefix: "/api/v1/user",
-		RList:      ApiUserRList,
+		RList:      apiUserRList,
 	}
 
 	ApiUserRouter.AddRouter(

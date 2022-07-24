@@ -4,9 +4,8 @@ import (
 	"io/fs"
 	"log"
 	"lowframe/app"
-	apiUser "lowframe/app/api/user"
-	"lowframe/app/web/root"
-	"lowframe/app/web/user"
+	"lowframe/app/index"
+	"lowframe/app/user"
 	"lowframe/templates"
 	"net/http"
 
@@ -27,9 +26,10 @@ func registerRoutes(mux *mux.Router, router *app.SubRoute) {
 }
 
 func initAppRouter() {
-	registerRoutes(Mux, root.RootRouter)
+	registerRoutes(Mux, index.IndexRouter)
+	registerRoutes(Mux, index.ApiIndexRouter)
 	registerRoutes(Mux, user.UserRouter)
-	registerRoutes(Mux, apiUser.ApiUserRouter)
+	registerRoutes(Mux, user.ApiUserRouter)
 }
 
 func initAssetsRouter() {

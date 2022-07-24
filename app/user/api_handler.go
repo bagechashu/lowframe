@@ -1,18 +1,15 @@
 package user
 
 import (
-	"fmt"
 	"log"
 	"net/http"
-
-	userModel "lowframe/model/user"
 
 	"github.com/unrolled/render"
 )
 
 func getDataHandler(rawReader *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
-		rawReader.JSON(w, http.StatusOK, userModel.UList)
+		rawReader.JSON(w, http.StatusOK, UList)
 	}
 }
 
@@ -24,30 +21,31 @@ func postUserLoginHandler(rawReader *render.Render) http.HandlerFunc {
 		if err != nil {
 			log.Println(err)
 		}
-		if !userModel.IsValid(req.Form) {
+		if !IsValid(req.Form) {
 			rawReader.JSON(w, http.StatusBadRequest, struct{ ErrorIndo string }{"Bad Input!"})
 			return
 		}
 
-		newUser := userModel.ParseUser(req.Form)
-		userModel.UList = append(userModel.UList, newUser)
+		newUser := ParseUser(req.Form)
+		UList = append(UList, newUser)
 
-		fmt.Printf("%+v", struct {
-			UserList []userModel.User
-		}{UserList: userModel.UList})
+		// Debug for render HTML template
+		// fmt.Printf("%+v", struct {
+		// 	UserList []User
+		// }{UserList: UList})
 
 		rawReader.HTML(w, http.StatusOK, "user/userList", struct {
-			UserList []userModel.User
-		}{UserList: userModel.UList})
+			UserList []User
+		}{UserList: UList})
 	}
 }
 
 func getUserInfoHandler(rawReader *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
 		rawReader.JSON(w, http.StatusOK, struct {
-			NewUser  userModel.User
-			UserList []userModel.User
-		}{UserList: userModel.UList})
+			NewUser  User
+			UserList []User
+		}{UserList: UList})
 	}
 
 }
