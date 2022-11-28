@@ -5,6 +5,7 @@ go 1.18
 require (
 	github.com/gorilla/mux v1.8.0
 	github.com/liushuochen/gotable v0.0.0-20220708105645-d0837fe61bce
+	github.com/mattn/go-sqlite3 v1.14.14
 	github.com/spf13/cobra v1.5.0
 	github.com/spf13/viper v1.12.0
 	github.com/unrolled/render v1.5.0
